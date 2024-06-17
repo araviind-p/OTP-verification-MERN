@@ -34,7 +34,7 @@ function Login() {
         .then((res) => {
           console.log(res);
           console.log("data sent");
-          navigate("/profile")
+          navigate("/profile", { state: data })
         })
         .catch((err) => {
           console.log(err);
@@ -44,7 +44,7 @@ function Login() {
           else if (err.response.data.message === "You have to Signup First") {
             toast.error("You have to Signup First");
           }
-          
+
         });
     }
   }

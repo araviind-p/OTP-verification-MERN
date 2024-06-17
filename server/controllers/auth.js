@@ -198,3 +198,65 @@ exports.sendotp = async (req, res) => {
         return res.status(500).json({ success: false, error: error.message });
     }
 };
+
+
+
+
+// profile fetch
+exports.profile = async (req, res) => {
+    try {
+      const { email } = req.query;
+      // Fetch user data from the database using the email
+      const userProfile = await user.findOne({ email }); // Assuming 'user' is your user model
+      if (!userProfile) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        user: userProfile
+      });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({
+        success: false,
+        message: "Server error"
+      });
+    }
+  };
+
+//   update profile
+exports.updateUser = async (req, res) => {
+    try {
+        console.log("coming to update user backend");
+      const { email, name } = req.body;
+      const updatedData = {};
+  
+      if (name) updatedData.name = name;
+  
+      const userProfile = await user.findOneAndUpdate({ email }, updatedData, { new: true });
+      
+      if (!userProfile) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+      }
+  
+      return res.status(200).json({
+        success: true,
+        user: userProfile,
+        message: "User updated successfully"
+      });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({
+        success: false,
+        message: "Server error"
+      });
+    }
+  };
+  
+  

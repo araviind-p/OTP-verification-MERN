@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Register from './Components/Register';
 import EnterOtp from './Components/EnterOtp';
 import Profile from './Components/Profile';
+import UpdateProfile from './Components/UpdateProfile';
 
 // routes
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <Profile />
+  },
+  {
+    path: '/updateUser',
+    element: <UpdateProfile />
   },
 ])
 
