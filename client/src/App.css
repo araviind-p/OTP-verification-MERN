@@ -47,3 +47,36 @@ button:hover {
   width: 40%;
   height: 50%;
 }
+
+/* loading */
+.loading_container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* toast style */
+.custom-toast-container .Toastify__toast {
+  width: 95%; /* Adjust the width as needed */
+  height: 20%; /* Adjust the height as needed */
+  background-color: #ccc;
+}
+
+.custom-toast-container .Toastify__toast-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensure the content is centered vertically */
+}
+
+
+
+
+/* responsive - mediaquery */
+@media only screen and (max-width: 600px) {
+  .container{
+    width: 90%;
+  }
+}

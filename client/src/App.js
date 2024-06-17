@@ -3,6 +3,7 @@ import Login from './Components/Login';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Register from './Components/Register';
 import EnterOtp from './Components/EnterOtp';
+import Profile from './Components/Profile';
 
 // routes
 const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: '/otpVerify',
     element: <EnterOtp />
+  },
+  {
+    path: '/profile',
+    element: <Profile />
   },
 ])
 

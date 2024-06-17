@@ -8,7 +8,7 @@ require('dotenv').config()
 exports.signup = async (req, res) => {
     try {
         //get input data
-        const { name, email, password, role, otp } = req.body
+        const { name, email, password, otp } = req.body
 
         // Check if All Details are there or not
         if (!name ||
@@ -60,7 +60,7 @@ exports.signup = async (req, res) => {
         }
 
         const User = await user.create({
-            name, email, password: hashedPassword, role
+            name, email, password: hashedPassword
         })
 
         return res.status(200).json({
@@ -139,7 +139,7 @@ exports.login = async (req, res) => {
             //password donot matched
             return res.status(403).json({
                 success: false,
-                message: "Password incorrects⚠️"
+                message: "Password incorrects"
             })
         }
 
@@ -156,7 +156,8 @@ exports.login = async (req, res) => {
 // Send OTP For Email Verification
 exports.sendotp = async (req, res) => {
     try {
-        const { email } = req.body;
+        const { email, name, password } = req.body;
+
 
         // Check if user is already present
         // Find user with provided email
@@ -190,7 +191,7 @@ exports.sendotp = async (req, res) => {
         res.status(200).json({
             success: true,
             message: `OTP Sent Successfully`,
-            otp,
+            otp
         });
     } catch (error) {
         console.log(error.message);

@@ -2,11 +2,17 @@ import React from 'react'
 import { useState } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+
+
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,18 +30,27 @@ function Login() {
         password,
       };
 
-      axios.post("http://127.0.0.1:4000/api/v1/sendotp", data)
+      axios.post("http://127.0.0.1:4000/api/v1/login", data)
         .then((res) => {
           console.log(res);
           console.log("data sent");
+          navigate("/profile")
         })
         .catch((err) => {
           console.log(err);
+          if (err.response.data.message === "Password incorrects") {
+            toast.error("Incorrect password. Please try again.");
+          }
+          else if (err.response.data.message === "You have to Signup First") {
+            toast.error("You have to Signup First");
+          }
+          
         });
     }
   }
   return (
     <>
+      <ToastContainer className="custom-toast-container" />
       <form method="post" onSubmit={handleSubmit}>
         <div className="main_container">
           <div className="container">

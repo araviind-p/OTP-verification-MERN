@@ -1,17 +1,32 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function EnterOtp() {
     const [otp, setOtp] = useState("");
 
+    const location = useLocation();
+    const { state } = location;
+    console.log("Received data in otp page from register.... ", state);
+
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("http://127.0.0.1:4000/api/v1/signup",otp)
+        const data = { ...state, otp };
+        console.log("final data", data);
+        axios.post("http://127.0.0.1:4000/api/v1/signup", data)
             .then((res) => {
-                console.log(res);
                 console.log("data sent");
+                toast.success("Registration successful!");
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+
             })
             .catch((err) => {
                 console.log(err);
@@ -21,6 +36,7 @@ function EnterOtp() {
 
     return (
         <>
+            <ToastContainer className="custom-toast-container" />
             <form method="post" onSubmit={handleSubmit}>
                 <div className="main_container">
                     <div className="container">
@@ -32,7 +48,7 @@ function EnterOtp() {
                             required
                             onChange={e => setOtp(e.target.value)}
                         />
-                        <button type="submit"><Link to={'/login'}>Submit</Link></button>
+                        <button type="submit">Submit</button>
                     </div>
                 </div>
             </form>
