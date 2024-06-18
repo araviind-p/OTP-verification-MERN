@@ -2,18 +2,20 @@ const express = require('express')
 const router = express.Router()
 
 //Handlers from controllers
-const { login, signup, sendotp, profile, updateUser } = require("../controllers/auth")
+const { login, signup, sendotp, loginwithotp, profile, updateUser,loginwithotpverify } = require("../controllers/auth")
 const { auth, isStudent, isAdmin } = require('../middlewares/authMiddle')
 
 router.post('/login', login)
 router.post('/signup', signup)
 router.post('/sendotp', sendotp)
+router.post('/loginwithotp', loginwithotp)
+router.post('/loginwithotpverify', loginwithotpverify)
 
 // fetch profile
 router.get("/profile", profile)
 
 // update profile
-router.put("/updateUser",updateUser)
+router.put("/updateUser", updateUser)
 
 //testing protected route
 router.get("/test", auth, (req, res) => {

@@ -52,7 +52,7 @@ function UpdateProfile() {
 
         };
         fetchProfile();
-    }, []);
+    }, [email]);
 
 
 
@@ -79,7 +79,7 @@ function UpdateProfile() {
                             required
                             onChange={e => setNewName(e.target.value)}
                         />
-                        <button type="submit">Update Name</button>
+                        <button type="submit" className='update-button'>Update Name</button>
                     </div>
                 </div>
             </form>

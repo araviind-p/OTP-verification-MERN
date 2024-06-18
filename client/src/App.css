@@ -13,7 +13,7 @@ input[type="password"] {
 button {
   background-color: #04aa6d;
   color: white;
-  padding: 14px 20px;
+  padding: 9px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
@@ -28,28 +28,49 @@ button {
   margin: 8px 0;
   font-size: large;
 }
+.register a {
+  text-decoration: none;
+}
+
+.otp_verify_main {
+  margin-top: 7%;
+}
 
 /* Add a hover effect for buttons */
 button:hover {
   opacity: 0.8;
 }
 
+.login_with_otp {
+  background-color: white;
+  text-decoration: none;
+}
+.login_with_otp a {
+  text-decoration: none;
+}
+
 .main_container {
   width: 100%;
-  height: 90vh;
+  height: 81vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.register_main {
+  height: 100vh;
+}
 /* Add padding to containers */
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   padding: 16px;
   width: 40%;
   height: 50%;
 }
 
 /* loading */
-.loading_container{
+.loading_container {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -71,12 +92,80 @@ button:hover {
   height: 100%; /* Ensure the content is centered vertically */
 }
 
+/* profile page */
 
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90vh;
+}
 
+.profile-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 40vw;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-header h1 {
+  margin-bottom: 17%;
+  color: #333;
+}
+
+.profile-info {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.profile-info p {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #555;
+}
+
+.label {
+  font-weight: bold;
+  color: #333;
+}
+
+#username,
+#email {
+  color: #666;
+}
+
+.profile-actions {
+  margin-top: 20px;
+}
+
+.update-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+  background-color: #0056b3;
+}
 
 /* responsive - mediaquery */
-@media only screen and (max-width: 600px) {
-  .container{
+@media only screen and (max-width: 500px) {
+  .container {
     width: 90%;
+  }
+  .profile-card {
+    width: 80vw;
+  }
+  .otp_verify_main {
+    margin-top: 35%;
   }
 }

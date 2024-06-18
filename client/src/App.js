@@ -5,6 +5,8 @@ import Register from './Components/Register';
 import EnterOtp from './Components/EnterOtp';
 import Profile from './Components/Profile';
 import UpdateProfile from './Components/UpdateProfile';
+import LoginWithOtp from './Components/LoginWithOtp';
+import LoginWithOtpVerify from './Components/LoginWithOtpVerify';
 
 // routes
 const router = createBrowserRouter([
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: '/updateUser',
     element: <UpdateProfile />
+  },
+  {
+    path: '/loginwithotp',
+    element: <LoginWithOtp />
+  },
+  {
+    path: '/verifyotp',
+    element: <LoginWithOtpVerify />
   },
 ])
 

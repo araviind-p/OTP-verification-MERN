@@ -76,6 +76,7 @@ function Login() {
         </div>
       </form>
       <button className="register"><Link to={'/register'}>Register</Link> </button>
+      <button className="login_with_otp"><Link to={'/loginwithotp'}>Login with otp</Link> </button>
     </>
   )
 }

@@ -73,7 +73,7 @@ function Register() {
 
       {!loading && !isUserExist && (
         <form method="post" onSubmit={handleSubmit}>
-          <div className="main_container">
+          <div className="main_container register_main">
             <div className="container">
               <label htmlFor="name"><b>Name</b></label>
               <input

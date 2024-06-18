@@ -201,62 +201,153 @@ exports.sendotp = async (req, res) => {
 
 
 
+//login with otp
+exports.loginwithotp = async (req, res) => {
+    try {
+        const { email, name, password } = req.body;
+
+
+        // Check if user is already present
+        // Find user with provided email
+        const checkUserPresent = await user.findOne({ email });
+        // to be used in case of signup
+
+        // If user found with provided email
+        if (!checkUserPresent) {
+            // Return 401 Unauthorized status code with error message
+            return res.status(401).json({
+                success: false,
+                message: `Not a registered user`,
+            });
+        }
+
+        var otp = otpGenerator.generate(6, {
+            upperCaseAlphabets: false,
+            lowerCaseAlphabets: false,
+            specialChars: false,
+        });
+        const result = await OTP.findOne({ otp: otp });
+        console.log("Result is Generate OTP Func");
+        console.log("OTP", otp);
+        while (result) {
+            otp = otpGenerator.generate(6, {
+                upperCaseAlphabets: false,
+            });
+        }
+        const otpPayload = { email, otp };
+        const otpBody = await OTP.create(otpPayload);
+        res.status(200).json({
+            success: true,
+            message: `OTP Sent Successfully`,
+            otp
+        });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+
+
+
+
 
 // profile fetch
 exports.profile = async (req, res) => {
     try {
-      const { email } = req.query;
-      // Fetch user data from the database using the email
-      const userProfile = await user.findOne({ email }); // Assuming 'user' is your user model
-      if (!userProfile) {
-        return res.status(404).json({
-          success: false,
-          message: "User not found"
+        const { email } = req.query;
+        // Fetch user data from the database using the email
+        const userProfile = await user.findOne({ email }); // Assuming 'user' is your user model
+        if (!userProfile) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            user: userProfile
         });
-      }
-      return res.status(200).json({
-        success: true,
-        user: userProfile
-      });
     } catch (error) {
-      console.log(error.message);
-      return res.status(500).json({
-        success: false,
-        message: "Server error"
-      });
+        console.log(error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
     }
-  };
+};
 
 //   update profile
 exports.updateUser = async (req, res) => {
     try {
         console.log("coming to update user backend");
-      const { email, name } = req.body;
-      const updatedData = {};
-  
-      if (name) updatedData.name = name;
-  
-      const userProfile = await user.findOneAndUpdate({ email }, updatedData, { new: true });
-      
-      if (!userProfile) {
-        return res.status(404).json({
-          success: false,
-          message: "User not found"
+        const { email, name } = req.body;
+        const updatedData = {};
+
+        if (name) updatedData.name = name;
+
+        const userProfile = await user.findOneAndUpdate({ email }, updatedData, { new: true });
+
+        if (!userProfile) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            user: userProfile,
+            message: "User updated successfully"
         });
-      }
-  
-      return res.status(200).json({
-        success: true,
-        user: userProfile,
-        message: "User updated successfully"
-      });
     } catch (error) {
-      console.log(error.message);
-      return res.status(500).json({
-        success: false,
-        message: "Server error"
-      });
+        console.log(error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
     }
-  };
-  
-  
+};
+
+
+
+
+
+
+
+//login with otp verify
+exports.loginwithotpverify = async (req, res) => {
+    try {
+        //get input data
+        const { otp, email } = req.body
+        console.log("otpppppp...", otp, "email.....", email);
+
+        // Find the most recent OTP for the email
+        const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+        console.log(response);
+        if (response.length === 0) {
+            // OTP not found for the email
+            return res.status(400).json({
+                success: false,
+                message: "The OTP is not valid",
+            });
+        } else if (otp !== response[0].otp) {
+            // Invalid OTP
+            return res.status(400).json({
+                success: false,
+                message: "The OTP is not valid",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "OTP verified ✅"
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({
+            success: false,
+            message: "otp verification failed"
+        })
+    }
+}

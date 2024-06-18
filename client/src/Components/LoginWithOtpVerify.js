@@ -6,30 +6,34 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function EnterOtp() {
+function LoginWithOtpVerify() {
     const [otp, setOtp] = useState("");
 
     const location = useLocation();
-    const { state } = location;
-    console.log("Received data in otp page from register.... ", state);
+    const { email } = location.state;
+    console.log("Received data in otp page from registerrr.... ", email);
 
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = { ...state, otp };
-        console.log("final data", data);
-        axios.post("http://127.0.0.1:4000/api/v1/signup", data)
+        const data={
+            email,
+        
+        }
+        // const data = { ...state, otp };
+        // console.log("final data", data);
+        axios.post("http://127.0.0.1:4000/api/v1/loginwithotpverify", {otp,email})
             .then((res) => {
-                console.log("data sent");
-                toast.success("Registration successful!");
+                console.log("ressss  ",res);
+                toast.success("Login successful!");
                 setTimeout(() => {
-                    navigate("/");
+                    navigate("/profile",{ state: data });
                 }, 2000);
 
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.response.data.message);
                 toast.error("incorrect otp")
             });
     }
@@ -39,9 +43,9 @@ function EnterOtp() {
         <>
             <ToastContainer className="custom-toast-container" />
             <form method="post" onSubmit={handleSubmit}>
-                <div className="main_container">
+                <div className="main_container otp_verify_main">
                     <div className="container">
-                        <label htmlFor="email"><b>Enter OTP recieved in your mail</b></label>
+                        <label ><b>Enter OTP recieved in your mail</b></label>
                         <input
                             type="text"
                             placeholder="Enter otp"
@@ -56,4 +60,4 @@ function EnterOtp() {
         </>
     )
 }
-export default EnterOtp
+export default LoginWithOtpVerify
