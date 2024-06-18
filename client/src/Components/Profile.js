@@ -15,6 +15,8 @@ function Profile() {
 
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
+  const [age, setAge] = useState("")
+  const [place, setPlace] = useState("")
 
   const updateUser = () => {
     navigate("/updateUser", { state: { email, password } });
@@ -26,7 +28,7 @@ function Profile() {
         localStorage.removeItem('token'); // Remove token from local storage
         setTimeout(() => {
           navigate("/");
-        }, 2000);
+        }, 1000);
       })
       .catch((err) => {
         toast.error(err)
@@ -51,6 +53,8 @@ function Profile() {
             console.log("reply res.........", res.data);
             setUserEmail(res.data.user.email)
             setUserName(res.data.user.name)
+            setAge(res.data.user.age)
+            setPlace(res.data.user.place)
           }
           )
           .catch((err) => {
@@ -75,6 +79,8 @@ function Profile() {
           <div className="profile-info">
             <p><span className="label">Username:</span> <span id="username">{userName}</span></p>
             <p><span className="label">Email:</span> <span id="email">{userEmail}</span></p>
+            <p><span className="label">Age:</span> <span id="age">{age}</span></p>
+            <p><span className="label">Place:</span> <span id="place">{place}</span></p>
           </div>
           <div className="profile-actions">
             <button className="update-button" onClick={updateUser}>Update</button>

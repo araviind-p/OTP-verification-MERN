@@ -7,6 +7,8 @@ import Loading from './Loading';
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [age,setAge]=useState("")
+  const[place,setPlace]=useState("")
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [isUserExist, setIsUserExist] = useState(false);
@@ -30,6 +32,8 @@ function Register() {
       const data = {
         name,
         email,
+        age,
+        place,
         password,
       };
 
@@ -95,10 +99,26 @@ function Register() {
               <label htmlFor="password"><b>Password</b></label>
               <input
                 type="password"
-                placeholder="Enter Password"
+                placeholder="Enter password"
                 name="password"
                 required
                 onChange={e => setPassword(e.target.value)}
+              />
+              <label htmlFor="age"><b>Age</b></label>
+              <input
+                type="number"
+                placeholder="Enter your age"
+                name="age"
+                required
+                onChange={e => setAge(e.target.value)}
+              />
+              <label htmlFor="place"><b>Place</b></label>
+              <input
+                type="text"
+                placeholder="Enter your place"
+                name="age"
+                required
+                onChange={e => setPlace(e.target.value)}
               />
               <button type="submit">Register</button>
             </div>

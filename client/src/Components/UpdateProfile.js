@@ -10,6 +10,8 @@ function UpdateProfile() {
 
     const [NewEmail, setNewEmail] = useState("");
     const [NewName, setNewName] = useState("");
+    const [NewAge, setNewAge] = useState("")
+    const [NewPlace, setNewPlace] = useState("")
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -21,7 +23,9 @@ function UpdateProfile() {
         e.preventDefault();
         const data = {
             email: NewEmail,
-            name: NewName
+            name: NewName,
+            age: NewAge,
+            place: NewPlace
         };
         const token = localStorage.getItem('token'); // Retrieve token from local storage
         axios.put("http://127.0.0.1:4000/api/v1/updateUser", data,
@@ -36,8 +40,8 @@ function UpdateProfile() {
                 console.log("res after update.........", res);
                 toast.success("User updated successfully")
                 setTimeout(() => {
-                    navigate("/profile", { state: { email: NewEmail, name: NewName } });
-                }, 2000);
+                    navigate("/profile", { state: { email: NewEmail, name: NewName, age: NewAge, place: NewPlace } });
+                }, 1000);
             })
             .catch((err) => {
                 console.log(err);
@@ -60,6 +64,8 @@ function UpdateProfile() {
                         console.log("reply res.........", res.data);
                         setNewEmail(res.data.user.email)
                         setNewName(res.data.user.name)
+                        setNewAge(res.data.user.age)
+                        setNewPlace(res.data.user.place)
                     }
                     )
                     .catch((err) => {
@@ -99,7 +105,23 @@ function UpdateProfile() {
                             required
                             onChange={e => setNewName(e.target.value)}
                         />
-                        <button type="submit" className='update-button'>Update Name</button>
+                        <label htmlFor="age"><b>Age</b></label>
+                        <input
+                            type="number"
+                            value={NewAge}
+                            name="age"
+                            required
+                            onChange={e => setNewAge(e.target.value)}
+                        />
+                        <label htmlFor="age"><b>Place</b></label>
+                        <input
+                            type="text"
+                            value={NewPlace}
+                            name="place"
+                            required
+                            onChange={e => setNewPlace(e.target.value)}
+                        />
+                        <button type="submit" className='update-button'>Update</button>
                     </div>
                 </div>
             </form>

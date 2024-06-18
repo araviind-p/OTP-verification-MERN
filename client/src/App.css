@@ -1,6 +1,7 @@
 /* Full-width inputs */
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="number"] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -78,7 +79,6 @@ button:hover {
   align-items: center;
 }
 
-
 .custom-toast-container .Toastify__toast-body {
   display: flex;
   align-items: center;
@@ -152,18 +152,16 @@ button:hover {
 }
 
 /* logout button */
-.logout{
-  background-color:white;
+.logout {
+  background-color: white;
   color: red;
-
 }
 
-
-
 /* responsive - mediaquery */
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 700px) {
   .container {
     width: 90%;
+    margin-bottom: 20%;
   }
   .profile-card {
     width: 80vw;

@@ -8,13 +8,15 @@ require('dotenv').config()
 exports.signup = async (req, res) => {
     try {
         //get input data
-        const { name, email, password, otp } = req.body
+        const { name, email, age, place, password, otp } = req.body
 
         // Check if All Details are there or not
         if (!name ||
             !email ||
             !password ||
-            !otp
+            !otp ||
+            !age ||
+            !place
         ) {
             return res.status(403).send({
                 success: false,
@@ -60,7 +62,7 @@ exports.signup = async (req, res) => {
         }
 
         const User = await user.create({
-            name, email, password: hashedPassword
+            name, email,age,place, password: hashedPassword
         })
 
         return res.status(200).json({
@@ -155,7 +157,7 @@ exports.login = async (req, res) => {
 // Send OTP For Email Verification
 exports.sendotp = async (req, res) => {
     try {
-        const { email, name, password } = req.body;
+        const { email } = req.body;
 
 
         // Check if user is already present
@@ -280,10 +282,12 @@ exports.profile = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         console.log("coming to update user backend");
-        const { email, name } = req.body;
+        const { email, name,age,place } = req.body;
         const updatedData = {};
 
         if (name) updatedData.name = name;
+        if (age) updatedData.age = age;
+        if (place) updatedData.place = place;
 
         const userProfile = await user.findOneAndUpdate({ email }, updatedData, { new: true });
 
