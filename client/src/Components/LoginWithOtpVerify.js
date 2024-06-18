@@ -17,18 +17,22 @@ function LoginWithOtpVerify() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data={
+        const data = {
             email,
-        
+
         }
         // const data = { ...state, otp };
         // console.log("final data", data);
-        axios.post("http://127.0.0.1:4000/api/v1/loginwithotpverify", {otp,email})
+        axios.post("http://127.0.0.1:4000/api/v1/loginwithotpverify", { otp, email })
             .then((res) => {
-                console.log("ressss  ",res);
+                console.log("ressss  ", res);
+                console.log("tokennnnnnnn......", res.data.token);
+                const token = res.data.User.token;  // Assuming the token is returned in the response data
+                localStorage.setItem('token', token);  // Store token in local storage
                 toast.success("Login successful!");
+
                 setTimeout(() => {
-                    navigate("/profile",{ state: data });
+                    navigate("/profile", { state: data });
                 }, 2000);
 
             })

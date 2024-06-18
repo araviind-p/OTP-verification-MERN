@@ -62,7 +62,7 @@ exports.signup = async (req, res) => {
         }
 
         const User = await user.create({
-            name, email,age,place, password: hashedPassword
+            name, email, age, place, password: hashedPassword
         })
 
         return res.status(200).json({
@@ -282,7 +282,7 @@ exports.profile = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         console.log("coming to update user backend");
-        const { email, name,age,place } = req.body;
+        const { email, name, age, place } = req.body;
         const updatedData = {};
 
         if (name) updatedData.name = name;
@@ -342,10 +342,35 @@ exports.loginwithotpverify = async (req, res) => {
             });
         }
 
-        return res.status(200).json({
-            success: true,
-            message: "OTP verified ✅"
-        })
+
+        let User = await user.findOne({ email })
+        const payload = {
+            email: User.email,
+            id: User._id,
+        }
+        //now lets create a JWT token
+        let token = jwt.sign(payload,
+            process.env.JWT_SECRET,
+            { expiresIn: "2h" }
+        )
+        User = User.toObject()
+        User.token = token
+
+        User.password = undefined
+        const options = {
+            expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+            httpOnly: true  //It will make cookie not accessible on clinet side -> good way to keep hackers away
+
+        }
+
+        return res.cookie("token",
+            token,
+            options)
+            .status(200).json({
+                success: true,
+                User,
+                message: "OTP verified ✅"
+            })
     } catch (error) {
         console.error(error)
         return res.status(500).json({
