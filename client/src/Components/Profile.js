@@ -22,7 +22,7 @@ function Profile() {
     navigate("/updateUser", { state: { email, password } });
   };
   const handleLogout = () => {
-    axios.post("http://127.0.0.1:4000/api/v1/logout")
+    axios.post("https://otp-verification-mern.onrender.com/api/v1/logout")
       .then((res) => {
         toast.success("Logout successful!");
         localStorage.removeItem('token'); // Remove token from local storage
@@ -48,7 +48,7 @@ function Profile() {
             'Authorization': `Bearer ${token}`
           }
         };
-        axios.get(`http://127.0.0.1:4000/api/v1/profile?email=${encodeURIComponent(email)}`, config)
+        axios.get(`https://otp-verification-mern.onrender.com/api/v1/profile?email=${encodeURIComponent(email)}`, config)
           .then((res) => {
             console.log("reply res.........", res.data);
             setUserEmail(res.data.user.email)

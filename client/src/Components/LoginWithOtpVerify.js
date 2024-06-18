@@ -23,7 +23,7 @@ function LoginWithOtpVerify() {
         }
         // const data = { ...state, otp };
         // console.log("final data", data);
-        axios.post("http://127.0.0.1:4000/api/v1/loginwithotpverify", { otp, email })
+        axios.post("https://otp-verification-mern.onrender.com/api/v1/loginwithotpverify", { otp, email })
             .then((res) => {
                 console.log("ressss  ", res);
                 console.log("tokennnnnnnn......", res.data.token);

@@ -28,7 +28,7 @@ function UpdateProfile() {
             place: NewPlace
         };
         const token = localStorage.getItem('token'); // Retrieve token from local storage
-        axios.put("http://127.0.0.1:4000/api/v1/updateUser", data,
+        axios.put("https://otp-verification-mern.onrender.com/api/v1/updateUser", data,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -59,7 +59,7 @@ function UpdateProfile() {
                     navigate("/"); // Redirect to login if token is missing
                     return;
                 }
-                axios.get(`http://127.0.0.1:4000/api/v1/profile?email=${encodeURIComponent(email)}`)
+                axios.get(`https://otp-verification-mern.onrender.com/api/v1/profile?email=${encodeURIComponent(email)}`)
                     .then((res) => {
                         console.log("reply res.........", res.data);
                         setNewEmail(res.data.user.email)

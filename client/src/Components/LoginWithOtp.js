@@ -31,7 +31,7 @@ function LoginWithOtp() {
       };
 
       navigate('/verifyotp', { state: data });
-      axios.post("http://127.0.0.1:4000/api/v1/loginwithotp", data)
+      axios.post("https://otp-verification-mern.onrender.com/api/v1/loginwithotp", data)
         .then((res) => {
           console.log("success message", res.data.success);
           console.log("response after otp send", res.data.otp);
