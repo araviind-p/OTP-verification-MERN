@@ -78,12 +78,6 @@ button:hover {
   align-items: center;
 }
 
-/* toast style */
-.custom-toast-container .Toastify__toast {
-  width: 95%; /* Adjust the width as needed */
-  height: 20%; /* Adjust the height as needed */
-  background-color: #ccc;
-}
 
 .custom-toast-container .Toastify__toast-body {
   display: flex;
@@ -156,6 +150,15 @@ button:hover {
 .update-button:hover {
   background-color: #0056b3;
 }
+
+/* logout button */
+.logout{
+  background-color:white;
+  color: red;
+
+}
+
+
 
 /* responsive - mediaquery */
 @media only screen and (max-width: 500px) {

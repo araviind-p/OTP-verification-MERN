@@ -4,11 +4,12 @@ require('dotenv').config()
 //auth, isSTudent, isAdmin
 
 
-exports.auth = (req,res,next)=>{
+exports.auth = (req, res, next) => {
     try {
         //extract JWT token
-        const token = req.body.token || req.cookies.token
-        if(!token){
+        const token = req.headers.authorization?.split(' ')[1] || req.cookies.token;
+        console.log("token.....",token);
+        if (!token) {
             return res.status(401).json({
                 success: false,
                 message: "Token Missing"
@@ -22,7 +23,7 @@ exports.auth = (req,res,next)=>{
             console.log(req.user)
         } catch (error) {
             return res.status(401).json({
-                success:false,
+                success: false,
                 message: "invalid Token ⚠️"
             })
         }
@@ -31,45 +32,9 @@ exports.auth = (req,res,next)=>{
 
     } catch (error) {
         return res.status(401).json({
-            success:false,
+            success: false,
             message: "Error Occured in Authentication ⚠️"
         })
     }
 }
 
-exports.isStudent = (req,res,next)=>{
-    try {
-        console.log(req.user)
-        if(req.user.role !=="Student"){
-            return res.status(401).json({
-                success:false,
-                message: "You are not authorized Student⚠️"
-            })
-        }
-
-        next()
-    } catch (error) {
-        return res.status(500).json({
-            success:false,
-            message: "Something error occured⚠️: "+error
-        })
-    }
-}
-
-exports.isAdmin = (req,res,next)=>{
-    try {
-        if(req.user.role !=="Admin"){
-            return res.status(401).json({
-                success:false,
-                message: "You are not authorized Admin⚠️"
-            })
-        }
-
-        next()
-    } catch (error) {
-        return res.status(500).json({
-            success:false,
-            message: "Something error occured⚠️: "+error
-        })
-    }
-}

@@ -104,7 +104,6 @@ exports.login = async (req, res) => {
         const payload = {
             email: User.email,
             id: User._id,
-            role: User.role,
         }
         //verify password and generate a JWt token 🔎
         if (await bcrypt.compare(password, User.password)) {
@@ -351,3 +350,26 @@ exports.loginwithotpverify = async (req, res) => {
         })
     }
 }
+
+
+
+//logout user
+//logout handle
+exports.logout = (req, res) => {
+    try {
+        // Clear the token cookie
+        res.clearCookie("token");
+
+        // Send a success response
+        return res.status(200).json({
+            success: true,
+            message: "Logged out successfully ✅"
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Logout failed ⚠️"
+        });
+    }
+};

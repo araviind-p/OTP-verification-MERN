@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,7 +23,15 @@ function UpdateProfile() {
             email: NewEmail,
             name: NewName
         };
-        axios.put("http://127.0.0.1:4000/api/v1/updateUser", data)
+        const token = localStorage.getItem('token'); // Retrieve token from local storage
+        axios.put("http://127.0.0.1:4000/api/v1/updateUser", data,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                withCredentials: true // Include cookies in the request
+            }
+        )
             .then((res) => {
                 console.log("res after update.........", res);
                 toast.success("User updated successfully")
@@ -33,22 +41,34 @@ function UpdateProfile() {
             })
             .catch((err) => {
                 console.log(err);
+                toast.error(err)
             })
     }
 
     useEffect(() => {
         // Fetch user profile on component mount
         const fetchProfile = async () => {
-            axios.get(`http://127.0.0.1:4000/api/v1/profile?email=${encodeURIComponent(email)}`)
-                .then((res) => {
-                    console.log("reply res.........", res.data);
-                    setNewEmail(res.data.user.email)
-                    setNewName(res.data.user.name)
+
+            try {
+                const token = localStorage.getItem('token'); // Retrieve token from local storage
+                if (!token) {
+                    navigate("/"); // Redirect to login if token is missing
+                    return;
                 }
-                )
-                .catch((err) => {
-                    console.log(err);
-                })
+                axios.get(`http://127.0.0.1:4000/api/v1/profile?email=${encodeURIComponent(email)}`)
+                    .then((res) => {
+                        console.log("reply res.........", res.data);
+                        setNewEmail(res.data.user.email)
+                        setNewName(res.data.user.name)
+                    }
+                    )
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            } catch (error) {
+                console.error(error);
+                navigate("/"); // Redirect to login on error (e.g., token invalid)
+            }
 
         };
         fetchProfile();
