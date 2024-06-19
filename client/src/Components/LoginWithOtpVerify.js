@@ -29,6 +29,7 @@ function LoginWithOtpVerify() {
                 console.log("tokennnnnnnn......", res.data.token);
                 const token = res.data.User.token;  // Assuming the token is returned in the response data
                 localStorage.setItem('token', token);  // Store token in local storage
+                localStorage.setItem('email', email)
                 toast.success("Login successful!");
 
                 setTimeout(() => {
