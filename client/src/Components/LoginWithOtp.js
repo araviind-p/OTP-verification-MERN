@@ -33,7 +33,9 @@ function LoginWithOtp() {
       axios.post("https://otp-verification-mern.onrender.com/api/v1/loginwithotp", data)
         .then((res) => {
           console.log("not registerd.........", res.data);
-          navigate('/verifyotp', { state: data });
+          // navigate('/verifyotp', { state: data });
+          localStorage.setItem('email',email)
+          navigate('/verifyotp');
           console.log("success message", res.data.success);
           console.log("response after otp send", res.data.otp);
           // data.otp = res.data.otp;

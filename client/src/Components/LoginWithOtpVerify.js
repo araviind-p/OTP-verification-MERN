@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,18 +9,19 @@ import 'react-toastify/dist/ReactToastify.css';
 function LoginWithOtpVerify() {
     const [otp, setOtp] = useState("");
 
-    const location = useLocation();
-    const { email } = location.state;
+    // const location = useLocation();
+    // const { email } = location.state;
+    const email = localStorage.getItem('email')
     console.log("Received data in otp page from registerrr.... ", email);
 
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = {
-            email,
+        // const data = {
+        //     email,
 
-        }
+        // }
         // const data = { ...state, otp };
         // console.log("final data", data);
         axios.post("https://otp-verification-mern.onrender.com/api/v1/loginwithotpverify", { otp, email })
@@ -33,13 +34,16 @@ function LoginWithOtpVerify() {
                 toast.success("Login successful!");
 
                 setTimeout(() => {
-                    navigate("/profile", { state: data });
+                    // navigate("/profile", { state: data });
+                    navigate("/profile");
                 }, 1500);
 
             })
             .catch((err) => {
                 console.log(err.response.data.message);
                 toast.error("incorrect otp")
+                localStorage.removeItem('email')
+                navigate("/")
             });
     }
 
