@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 4000
 
 // Apply CORS middleware
 app.use(cors({credentials: true, origin: 'https://otp-verification-mern-1.onrender.com'}));
+// app.use(cors({credentials: true, origin: 'http://192.168.111.1:3000'}));
 
 app.use(cookieParser());
 
