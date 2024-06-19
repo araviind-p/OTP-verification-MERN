@@ -38,7 +38,7 @@ function Register() {
       };
 
       setLoading(true);
-      axios.post("https://otp-verification-mern.onrender.com0/api/v1/sendotp", data)
+      axios.post("https://otp-verification-mern.onrender.com/api/v1/sendotp", data)
         .then((res) => {
           console.log("success message", res.data.success);
           console.log("response after otp send", res.data.otp);
@@ -47,7 +47,7 @@ function Register() {
           setLoading(false);
           navigate('/otpVerify', { state: data });
 
-          axios.post("https://otp-verification-mern.onrender.com0/api/v1/signup", data)
+          axios.post("https://otp-verification-mern.onrender.com/api/v1/signup", data)
             .then((res) => {
               console.log(res);
             })

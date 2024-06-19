@@ -23,7 +23,7 @@ function Profile() {
     navigate("/updateUser", { state: { email, password } });
   };
   const handleLogout = () => {
-    axios.post("https://otp-verification-mern.onrender.com0/api/v1/logout")
+    axios.post("https://otp-verification-mern.onrender.com/api/v1/logout")
       .then((res) => {
         toast.success("Logout successful!");
         localStorage.removeItem('token'); // Remove token from local storage
@@ -36,7 +36,7 @@ function Profile() {
       })
   }
   const handleDelete = () => {
-    axios.delete(`https://otp-verification-mern.onrender.com0/api/v1/deleteuser/${userId}`)
+    axios.delete(`https://otp-verification-mern.onrender.com/api/v1/deleteuser/${userId}`)
       .then((res) => {
         if (res.data.success) {
           toast.success("User account deleted");
@@ -68,7 +68,7 @@ function Profile() {
             'Authorization': `Bearer ${token}`
           }
         };
-        axios.get(`https://otp-verification-mern.onrender.com0/api/v1/profile?email=${encodeURIComponent(email)}`, config)
+        axios.get(`https://otp-verification-mern.onrender.com/api/v1/profile?email=${encodeURIComponent(email)}`, config)
           .then((res) => {
             console.log("reply res.........", res.data);
             setUserEmail(res.data.user.email)
