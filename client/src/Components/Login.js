@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from './Loading';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -31,7 +30,7 @@ function Login() {
         password,
       };
 
-      axios.post("https://otp-verification-mern.onrender.com/api/v1/login", data)
+      axios.post("https://otp-verification-mern.onrender.com0/api/v1/login", data)
         .then((res) => {
           console.log("cookie test....", res);
           console.log("data sent");

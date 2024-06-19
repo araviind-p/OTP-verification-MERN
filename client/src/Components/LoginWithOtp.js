@@ -29,10 +29,11 @@ function LoginWithOtp() {
       const data = {
         email,
       };
-
-      navigate('/verifyotp', { state: data });
-      axios.post("https://otp-verification-mern.onrender.com/api/v1/loginwithotp", data)
+      setLoading(true)
+      axios.post("https://otp-verification-mern.onrender.com0/api/v1/loginwithotp", data)
         .then((res) => {
+          console.log("not registerd.........", res.data);
+          navigate('/verifyotp', { state: data });
           console.log("success message", res.data.success);
           console.log("response after otp send", res.data.otp);
           // data.otp = res.data.otp;
@@ -41,35 +42,38 @@ function LoginWithOtp() {
           console.log("data sent");
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log("in error....", err.response.data.message);
           setLoading(false);
+          const errorMessage = err.response?.data?.message || "An error occurred. Please try again.";
+          toast.error(errorMessage)
         });
     }
   }
   return (
     <>
+      <ToastContainer className="custom-toast-container" />
       {loading ? <Loading /> :
-        (<>
-          <ToastContainer className="custom-toast-container" />
-          <form method="post" onSubmit={handleSubmit}>
-            <div className="main_container">
-              <div className="container">
+        (
+          <>
+            <form method="post" onSubmit={handleSubmit}>
+              <div className="main_container">
+                <div className="container">
 
-                <label htmlFor="email"><b>Email</b></label>
-                <input
-                  type="text"
-                  placeholder="Enter email"
-                  name="email"
-                  required
-                  onChange={e => setEmail(e.target.value)}
-                />
-                {emailError && <p className="error">{emailError}</p>}
+                  <label htmlFor="email"><b>Email</b></label>
+                  <input
+                    type="text"
+                    placeholder="Enter email"
+                    name="email"
+                    required
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                  {emailError && <p className="error">{emailError}</p>}
 
-                <button type="submit">Get OTP</button>
+                  <button type="submit">Get OTP</button>
+                </div>
               </div>
-            </div>
-          </form>
-        </>
+            </form>
+          </>
         )}
     </>
   )

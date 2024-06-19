@@ -3,6 +3,7 @@ const user = require("../models/user")
 const jwt = require('jsonwebtoken')
 const OTP = require('../models/OTP')
 const otpGenerator = require("otp-generator");
+const mailSender = require('../utils/mailSender');
 require('dotenv').config()
 //signup handle
 exports.signup = async (req, res) => {
@@ -64,6 +65,11 @@ exports.signup = async (req, res) => {
         const User = await user.create({
             name, email, age, place, password: hashedPassword
         })
+
+        // Send a confirmation email
+        const emailTitle = "Welcome to user management platform!";
+        const emailBody = `<h1>Hello, ${name}</h1><p>Thank you for signing up!</p>`;
+        await mailSender(email, emailTitle, emailBody);
 
         return res.status(200).json({
             success: true,
@@ -205,7 +211,7 @@ exports.sendotp = async (req, res) => {
 //login with otp
 exports.loginwithotp = async (req, res) => {
     try {
-        const { email, name, password } = req.body;
+        const { email } = req.body;
 
 
         // Check if user is already present
@@ -399,6 +405,35 @@ exports.logout = (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Logout failed ⚠️"
+        });
+    }
+};
+
+
+
+//delete user account
+exports.deleteuser =async (req, res) => {
+    try {
+        console.log("iddddddddddddddddd...... ", req.params.id);
+
+        const deletedUser = await user.findByIdAndDelete(req.params.id);
+
+        if (!deletedUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found ⚠️"
+            });
+        }
+        // Send a success response
+        return res.status(200).json({
+            success: true,
+            message: "User account deleted ✅"
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Can't delete account ⚠️"
         });
     }
 };

@@ -19,13 +19,13 @@ function EnterOtp() {
         e.preventDefault();
         const data = { ...state, otp };
         console.log("final data", data);
-        axios.post("https://otp-verification-mern.onrender.com/api/v1/signup", data)
+        axios.post("https://otp-verification-mern.onrender.com0/api/v1/signup", data)
             .then((res) => {
                 console.log("data sent");
                 toast.success("Registration successful!");
                 setTimeout(() => {
                     navigate("/");
-                }, 2000);
+                }, 1500);
 
             })
             .catch((err) => {
