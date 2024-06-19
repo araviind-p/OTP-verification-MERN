@@ -166,6 +166,9 @@ button:hover {
     width: 90%;
     margin-bottom: 20%;
   }
+  .profile-container{
+    height: 90dvh;
+  }
   .profile-card {
     width: 80vw;
   }
