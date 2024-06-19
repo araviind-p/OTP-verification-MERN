@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,10 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 function Profile() {
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const { email, password } = location.state
-  console.log("email in profile.......", email);
-  console.log("password in profile.......", password);
+  // const location = useLocation();
+  // const { email, password } = location.state
+  // console.log("email in profile.......", email);
+  // console.log("password in profile.......", password);
 
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
@@ -20,13 +20,15 @@ function Profile() {
   const [userId, setUserId] = useState("")
 
   const updateUser = () => {
-    navigate("/updateUser", { state: { email, password } });
+    // navigate("/updateUser", { state: { email, password } });
+    navigate("/updateUser");
   };
   const handleLogout = () => {
     axios.post("https://otp-verification-mern.onrender.com/api/v1/logout")
       .then((res) => {
         toast.success("Logout successful!");
         localStorage.removeItem('token'); // Remove token from local storage
+        localStorage.removeItem('email')
         setTimeout(() => {
           navigate("/");
         }, 1000);
@@ -41,6 +43,7 @@ function Profile() {
         if (res.data.success) {
           toast.success("User account deleted");
           localStorage.removeItem('token'); // Remove token from local storage
+          localStorage.removeItem('email')
           setTimeout(() => {
             navigate("/");
           }, 1000);
@@ -59,6 +62,7 @@ function Profile() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token'); // Retrieve token from local storage
+        const email = localStorage.getItem('email')
         if (!token) {
           navigate("/"); // Redirect to login if token is missing
           return;
@@ -89,7 +93,8 @@ function Profile() {
 
     };
     fetchProfile();
-  }, [email, navigate]);
+    // }, [email,navigate]);
+  }, [navigate]);
   return (
     <div>
       <ToastContainer className="custom-toast-container" />

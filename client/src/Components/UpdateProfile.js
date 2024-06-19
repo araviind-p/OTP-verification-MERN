@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,9 +14,9 @@ function UpdateProfile() {
     const [NewPlace, setNewPlace] = useState("")
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const { email, password } = location.state
-    console.log("update.......", email, password);
+    // const location = useLocation();
+    // const { email, password } = location.state
+    // console.log("update.......", email, password);
 
 
     const handleupdate = (e) => {
@@ -59,6 +59,7 @@ function UpdateProfile() {
                     navigate("/"); // Redirect to login if token is missing
                     return;
                 }
+                const email=localStorage.getItem("email")
                 axios.get(`https://otp-verification-mern.onrender.com/api/v1/profile?email=${encodeURIComponent(email)}`)
                     .then((res) => {
                         console.log("reply res.........", res.data);
@@ -78,7 +79,7 @@ function UpdateProfile() {
 
         };
         fetchProfile();
-    }, [email,navigate]);
+    }, [navigate]);
 
 
 

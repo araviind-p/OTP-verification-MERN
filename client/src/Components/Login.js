@@ -36,7 +36,9 @@ function Login() {
           console.log("data sent");
           const token = res.data.token;  // Assuming the token is returned in the response data
           localStorage.setItem('token', token);  // Store token in local storage
-          navigate("/profile", { state: data })
+          localStorage.setItem("email", data.email)
+          // navigate("/profile", { state: data })
+          navigate("/profile")
         })
         .catch((err) => {
           console.log(err);
