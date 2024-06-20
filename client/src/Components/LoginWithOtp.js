@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,10 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loading from './Loading';
 
 function LoginWithOtp() {
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   const navigate = useNavigate();
 
@@ -32,25 +31,20 @@ function LoginWithOtp() {
       setLoading(true)
       axios.post("https://otp-verification-mern.onrender.com/api/v1/loginwithotp", data)
         .then((res) => {
-          console.log("not registerd.........", res.data);
-          // navigate('/verifyotp', { state: data });
-          localStorage.setItem('email',email)
-          navigate('/verifyotp');
-          console.log("success message", res.data.success);
-          console.log("response after otp send", res.data.otp);
-          // data.otp = res.data.otp;
-          console.log("data", data);
+          localStorage.setItem('email', email) // Store email in local storage
+          navigate('/verifyotp'); // Redirect to LoginWithOtpVerify component
+          console.log("otp send");
           setLoading(false);
-          console.log("data sent");
         })
         .catch((err) => {
-          console.log("in error....", err.response.data.message);
+          console.log(err.response.data.message);
           setLoading(false);
           const errorMessage = err.response?.data?.message || "An error occurred. Please try again.";
           toast.error(errorMessage)
         });
     }
   }
+
   return (
     <>
       <ToastContainer className="custom-toast-container" />

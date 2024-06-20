@@ -8,7 +8,7 @@ import UpdateProfile from './Components/UpdateProfile';
 import LoginWithOtp from './Components/LoginWithOtp';
 import LoginWithOtpVerify from './Components/LoginWithOtpVerify';
 
-// routes
+// Define routes
 const router = createBrowserRouter([
   {
     path: '/',
@@ -40,6 +40,7 @@ const router = createBrowserRouter([
   },
 ])
 
+// App component
 function App() {
   return (
     <main>

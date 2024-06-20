@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ThreeDot } from 'react-loading-indicators';
+
 export default function Loading() {
     return (
         <div className="loading_container">

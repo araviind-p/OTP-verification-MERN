@@ -3,32 +3,35 @@ const router = express.Router()
 
 //Handlers from controllers
 const { login, signup, sendotp, loginwithotp, profile, updateUser, loginwithotpverify, logout, deleteuser } = require("../controllers/auth")
+
+// auth middleware
 const { auth } = require('../middlewares/authMiddle')
 
-router.post('/login', login)
-router.post('/signup', signup)
+// send otp while signup
 router.post('/sendotp', sendotp)
+
+// signup user
+router.post('/signup', signup)
+
+// login
+router.post('/login', login)
+
+// login with otp
 router.post('/loginwithotp', loginwithotp)
+
+// login with otp verify
 router.post('/loginwithotpverify', loginwithotpverify)
+
+// logout user
 router.post('/logout', logout)
 
-// fetch profile
+// fetch user profile
 router.get("/profile", profile)
 
-// update profile
+// update user profile
 router.put("/updateUser", auth, updateUser)
 
-// delete account
+// delete user account
 router.delete("/deleteuser/:id", deleteuser)
-
-//testing protected route
-router.get("/test", auth, (req, res) => {
-    res.json({
-        success: true,
-        message: "You are a valid Tester 👨‍💻"
-    })
-})
-
-
 
 module.exports = router

@@ -1,10 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 function UpdateProfile() {
 
@@ -14,10 +12,6 @@ function UpdateProfile() {
     const [NewPlace, setNewPlace] = useState("")
 
     const navigate = useNavigate();
-    // const location = useLocation();
-    // const { email, password } = location.state
-    // console.log("update.......", email, password);
-
 
     const handleupdate = (e) => {
         e.preventDefault();
@@ -37,10 +31,9 @@ function UpdateProfile() {
             }
         )
             .then((res) => {
-                console.log("res after update.........", res);
                 toast.success("User updated successfully")
                 setTimeout(() => {
-                    navigate("/profile", { state: { email: NewEmail, name: NewName, age: NewAge, place: NewPlace } });
+                    navigate("/profile"); // Redirect to profile page after updating successfully
                 }, 1000);
             })
             .catch((err) => {
@@ -52,36 +45,31 @@ function UpdateProfile() {
     useEffect(() => {
         // Fetch user profile on component mount
         const fetchProfile = async () => {
-
             try {
                 const token = localStorage.getItem('token'); // Retrieve token from local storage
-                if (!token) {
-                    navigate("/"); // Redirect to login if token is missing
+                const email = localStorage.getItem('email') //Retrieve email from local storage
+                if (!token || !email) {
+                    navigate("/"); // Redirect to login if token or email is missing
                     return;
                 }
-                const email=localStorage.getItem("email")
                 axios.get(`https://otp-verification-mern.onrender.com/api/v1/profile?email=${encodeURIComponent(email)}`)
                     .then((res) => {
-                        console.log("reply res.........", res.data);
                         setNewEmail(res.data.user.email)
                         setNewName(res.data.user.name)
                         setNewAge(res.data.user.age)
                         setNewPlace(res.data.user.place)
-                    }
-                    )
+                    })
                     .catch((err) => {
                         console.log(err);
                     })
             } catch (error) {
                 console.error(error);
-                navigate("/"); // Redirect to login on error (e.g., token invalid)
+                navigate("/"); // Redirect to login on error (e.g: token invalid)
             }
 
         };
         fetchProfile();
     }, [navigate]);
-
-
 
     return (
         <>

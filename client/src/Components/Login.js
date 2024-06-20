@@ -1,16 +1,14 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react'
 import axios from "axios";
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
-
 
   const navigate = useNavigate();
 
@@ -32,13 +30,10 @@ function Login() {
 
       axios.post("https://otp-verification-mern.onrender.com/api/v1/login", data)
         .then((res) => {
-          console.log("cookie test....", res);
-          console.log("data sent");
           const token = res.data.token;  // Assuming the token is returned in the response data
           localStorage.setItem('token', token);  // Store token in local storage
-          localStorage.setItem("email", data.email)
-          // navigate("/profile", { state: data })
-          navigate("/profile")
+          localStorage.setItem("email", data.email) //store email in local storage
+          navigate("/profile") //navigate to profile page after successful login
         })
         .catch((err) => {
           console.log(err);
@@ -53,7 +48,6 @@ function Login() {
     }
   }
   return (
-
     <>
       <ToastContainer className="custom-toast-container" />
       <form method="post" onSubmit={handleSubmit}>
@@ -84,7 +78,6 @@ function Login() {
       <button className="login_with_otp"><Link to={'/loginwithotp'}>Login with otp</Link> </button>
     </>
   )
-
 }
 
 export default Login

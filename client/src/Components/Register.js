@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("")
@@ -23,7 +24,6 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address.");
       setLoading(false);
@@ -40,12 +40,10 @@ function Register() {
       setLoading(true);
       axios.post("https://otp-verification-mern.onrender.com/api/v1/sendotp", data)
         .then((res) => {
-          console.log("success message", res.data.success);
-          console.log("response after otp send", res.data.otp);
-          // data.otp = res.data.otp;
+          console.log("otp send");
           console.log("data", data);
           setLoading(false);
-          navigate('/otpVerify', { state: data });
+          navigate('/otpVerify', { state: data }); //navigate to EnterOtp component
 
           axios.post("https://otp-verification-mern.onrender.com/api/v1/signup", data)
             .then((res) => {

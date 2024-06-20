@@ -1,12 +1,11 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react'
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function EnterOtp() {
+
     const [otp, setOtp] = useState("");
 
     const location = useLocation();
@@ -21,12 +20,10 @@ function EnterOtp() {
         console.log("final data", data);
         axios.post("https://otp-verification-mern.onrender.com/api/v1/signup", data)
             .then((res) => {
-                console.log("data sent");
                 toast.success("Registration successful!");
                 setTimeout(() => {
                     navigate("/");
-                }, 1500);
-
+                }, 1500); //navigate to login page after 1.5s on registration successful
             })
             .catch((err) => {
                 console.log(err);
