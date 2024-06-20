@@ -1,18 +1,21 @@
 
 # Secure Authentication and Authorization System
-How to Build a Secure and Scalable Authentication System with Express js and MongoDB With React js App!
+How to Build a Secure and Scalable Authentication System with Express js and MongoDB together With React js App?
 
 
-Welcome to the Secure Authentication and Authorization System! This project is a scalable and secure implementation of authentication and authorization using Node.js, Express.js, bcrypt, and MongoDB. It provides a robust foundation for managing user accounts, authentication, and access control in your web applications. Frontend is created using React js(npx-cra)
+Welcome to the Secure Authentication and Authorization System! This project is a scalable and secure implementation of authentication and authorization using Node.js, Express.js, bcrypt, MongoDB, and React js. It provides a robust foundation for managing user accounts, authentication, and access control in your web applications. Frontend is created using React js(npx-cra)
 
 
 ## Features
 
 - User registration with secure password hashing using bcrypt
-- User login with session-based authentication
-- Account activation via email confirmation
+- User login with session-based authentication and authorization using JWT
 - OTP verifictaion
+- Confirmation mail on successful registration
 - login with OTP
+- Update profile
+- Logout
+- Delete user account
 
 
 ## Installation
