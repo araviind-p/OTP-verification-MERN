@@ -33,7 +33,8 @@ cd server
 npm i
 ```
 - create .env file like example-env.env
-- ensure mongodb is connected
+- refer this video for Gmail SMTP setup https://youtu.be/I9x0w8cjR_o?si=JvEM6g5Fcthy8Ybq
+- make sure mongodb is connected
 ```
 nodemon server.js
 ```
