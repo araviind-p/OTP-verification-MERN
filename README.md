@@ -6,6 +6,11 @@ How to Build a Secure and Scalable Authentication System with Express js and Mon
 Welcome to the Secure Authentication and Authorization System! This project is a scalable and secure implementation of authentication and authorization using Node.js, Express.js, bcrypt, MongoDB, and React js. It provides a robust foundation for managing user accounts, authentication, and access control in your web applications. Frontend is created using React js(npx-cra)
 
 
+
+### Check live demo 👉 https://otp-verification-mern-1.onrender.com
+
+
+
 ## Features
 
 - User registration with secure password hashing using bcrypt
